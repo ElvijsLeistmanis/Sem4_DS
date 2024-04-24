@@ -88,7 +88,36 @@ public class MyBST<T> {
 				return searchHelper(element, tempNode.getRightCh());
 			}
 		}
-		
 		return false;
+	}
+	
+	public void delete(T element) throws Exception {
+		if(isEmpty()) throw new Exception("Tree is empty.");
+		deleteHelper(root, element);
+	}
+	
+	private void deleteHelper(MyTreeNode tempNode, T element) {
+		if(tempNode.getElement().equals(element)) {
+			if(tempNode.getLeftCh() == null && tempNode.getRightCh() == null) {
+				MyTreeNode parent = tempNode.getParent();
+				if(parent.getLeftCh().getElement().equals(element))
+					parent.setLeftCh(null);
+			}
+			
+			else if (parent)
+		}
+		
+		
+		if( ((Comparable)tempNode.getElement()).compareTo(element) == 1) {
+			if (tempNode.getLeftCh() != null) {
+				deleteHelper(tempNode.getLeftCh(), element);
+			}
+		}
+		
+		else if( ((Comparable)tempNode.getElement()).compareTo(element) == -1) {
+			if (tempNode.getRightCh() != null) {
+				deleteHelper(tempNode.getRightCh(), element);
+			}
+		}
 	}
 }

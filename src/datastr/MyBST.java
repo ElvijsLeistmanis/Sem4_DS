@@ -13,7 +13,10 @@ public class MyBST<T> {
 	}
 	
 	public void insert(T element) {
-		if(isEmpty()) root = new MyTreeNode(element);
+		if(isEmpty()) {
+			root = new MyTreeNode(element);
+			counter++;
+		}
 		else {
 			insertHelpRecurseive(root, element);
 		}
@@ -53,16 +56,39 @@ public class MyBST<T> {
 	}
 	
 	private void printHelpRecursivePreOrder(MyTreeNode tempNode) {
-		System.out.print(tempNode.getElement());
+		System.out.print("P: " + tempNode.getElement());
 		
 		if(tempNode.getLeftCh() != null) {
-			System.out.print(" -> LC: " + tempNode.getLeftCh().getElement() + " [ " + tempNode.getElement() + " ]");
+			System.out.print(" -> LC: " + tempNode.getLeftCh().getElement() + " [" + tempNode.getElement() + "]\n");
 			printHelpRecursivePreOrder(tempNode.getLeftCh());
 		}
 		
 		if(tempNode.getRightCh() != null) {
-			System.out.print(" -> RC: " + tempNode.getRightCh().getElement() + " [ " + tempNode.getElement() + " ]");
+			System.out.print(" -> RC: " + tempNode.getRightCh().getElement() + " [" + tempNode.getElement() + "]\n");
 			printHelpRecursivePreOrder(tempNode.getRightCh());
 		}
+	}
+	
+	public boolean search(T element) throws Exception {
+		if(isEmpty()) throw new Exception("Tree is empty.");
+		return searchHelper(element, root);
+	}
+	
+	private boolean searchHelper(T element, MyTreeNode tempNode) {
+		
+		if(tempNode.getElement().equals(element)) return true;
+			
+		if( ((Comparable)tempNode.getElement()).compareTo(element) == 1) {
+			if (tempNode.getLeftCh() != null) {
+				return searchHelper(element, tempNode.getLeftCh());
+			}
+		}
+		else if( ((Comparable)tempNode.getElement()).compareTo(element) == -1) {
+			if (tempNode.getRightCh() != null) {
+				return searchHelper(element, tempNode.getRightCh());
+			}
+		}
+		
+		return false;
 	}
 }

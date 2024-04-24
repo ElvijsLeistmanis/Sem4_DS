@@ -46,4 +46,23 @@ public class MyBST<T> {
 			System.out.println("Element already exists.");
 		}
 	}
+	
+	public void print() throws Exception {
+		if(isEmpty()) throw new Exception("Tree is empty.");
+		printHelpRecursivePreOrder(root);
+	}
+	
+	private void printHelpRecursivePreOrder(MyTreeNode tempNode) {
+		System.out.print(tempNode.getElement());
+		
+		if(tempNode.getLeftCh() != null) {
+			System.out.print(" -> LC: " + tempNode.getLeftCh().getElement() + " [ " + tempNode.getElement() + " ]");
+			printHelpRecursivePreOrder(tempNode.getLeftCh());
+		}
+		
+		if(tempNode.getRightCh() != null) {
+			System.out.print(" -> RC: " + tempNode.getRightCh().getElement() + " [ " + tempNode.getElement() + " ]");
+			printHelpRecursivePreOrder(tempNode.getRightCh());
+		}
+	}
 }
